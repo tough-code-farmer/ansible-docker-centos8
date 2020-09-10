@@ -1,0 +1,32 @@
+---
+
+- name: install yum-utils
+  yum:
+    name: yum-utils
+    state: present
+
+- name: add docker repo
+  shell: yum-config-manager --add-repo {{ docker.repo }}
+
+- name: Download containerd.io package
+  get_url:
+    url: https://download.docker.com/linux/centos/7/x86_64/stable/Packages/containerd.io-1.2.6-3.3.el7.x86_64.rpm
+    dest: /tmp/containerd.io-1.2.6-3.3.el7.x86_64.rpm
+    mode: 0644
+    sha256sum: 90679e91563f72708b5fe9c21acb2d1788b7fddbc796b86d55d67a04aad2278b
+
+- name: install the containerd.io rpm from a file
+  dnf:
+    name: /tmp/containerd.io-1.2.6-3.3.el7.x86_64.rpm
+    state: present
+
+- name: install docker
+  yum:
+    name: "{{ docker.name }}"
+    state: present
+    update_cache: True
+
+- name: set systemd for docker
+  systemd:
+    name: docker
+    state: started

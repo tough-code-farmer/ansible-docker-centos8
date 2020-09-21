@@ -4,7 +4,7 @@ docker:
   name: docker-ce
   repo: http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
   script_file: /tmp/install_docker.sh
-  registry_mirrors: https://registry.docker-cn.com
+  registry_mirrors: https://k73774q1.mirror.aliyuncs.com
 
 pip:
   index_url: http://pypi.douban.com/simple

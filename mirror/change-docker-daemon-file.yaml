@@ -1,0 +1,24 @@
+---
+
+- name: Add aliyun mirror for docker daemon.json on Centos
+  hosts: all
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Ansible delete daemon file 
+      file:
+          path: /etc/docker/daemon.json
+          state: absent
+
+    - name: change daemon.json
+      blockinfile:
+          dest: /etc/docker/daemon.json
+          block: |
+              {
+                  "registry-mirrors": ["https://k73774q1.mirror.aliyuncs.com"]
+              }
+          create: yes
+          marker: ""
+
+    - name: enable docker serverice
+      service: name=docker state=started enabled=yes

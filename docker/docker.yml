@@ -1,8 +1,8 @@
 ## ansible-playbook docker.yml -i hosts -u alex -k -K
 ---
-- hosts: data
+- hosts: node
   roles:
     - role: docker
       become: yes
-    - role: docker-compose
-      become: yes
+#    - role: docker-compose
+#      become: yes

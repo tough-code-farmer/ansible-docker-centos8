@@ -16,7 +16,7 @@
     sha256sum: 90679e91563f72708b5fe9c21acb2d1788b7fddbc796b86d55d67a04aad2278b
 
 - name: install the containerd.io rpm from a file
-  dnf:
+  yum:
     name: /tmp/containerd.io-1.2.6-3.3.el7.x86_64.rpm
     state: present
 

@@ -1,6 +1,6 @@
 docker:
   users:
-    - cmdi
+    - root
   name: docker-ce
   repo: http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
   script_file: /tmp/install_docker.sh

@@ -1,0 +1,25 @@
+---
+
+- name: Disable firewalled and selinux
+  hosts: main 
+  vars:
+    sudoers:
+      - tu01 
+      - tu02
+
+  become: true
+  gather_facts: false
+  tasks:
+    - name: Create a user
+      user: 
+        name: "{{ item }}"
+        state: absent
+      with_items: "{{ sudoers }}"
+
+    - name: create group
+      group:
+        name: "tester"
+        state: absent
+
+
+

@@ -1,6 +1,6 @@
 ---
 
-- name: Change linux configuration
+- name: Disable firewalled and selinux
   hosts: all
   become: true
   gather_facts: false

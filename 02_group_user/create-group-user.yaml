@@ -1,0 +1,43 @@
+---
+
+- name: Disable firewalled and selinux
+  hosts: main 
+  vars:
+    sudoers:
+      - tu01 
+      - tu02
+
+  become: true
+  gather_facts: false
+  tasks:
+    - name: create group
+      group:
+        name: "tester"
+        state: present
+
+    - name: Create a user
+      user: 
+        name: "{{ item }}"
+        # password is cmdi
+        password: "$1$M9RFHD0V$isW9Zg/51aIeRKGwsEjUn." 
+      with_items: "{{ sudoers }}"
+
+    - name: Allow 'tester' group 
+      lineinfile:
+        dest: /etc/sudoers
+        state: present
+        regexp: '^%tester'
+        # line: '%tester ALL=(ALL) NOPASSWD: ALL'
+        line: '%tester ALL=(ALL)            ALL'
+        validate: visudo -cf %s
+
+    - name: Add sudoers users to tester group
+      user:
+        name: "{{ item }}"
+        groups: tester
+        append: yes
+      with_items: "{{ sudoers }}"
+
+
+
+
